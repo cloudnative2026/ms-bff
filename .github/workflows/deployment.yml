@@ -67,15 +67,14 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
           ECR_REPO: ${{ secrets.ECR_REPO_URL_MS_BFF }}
-          URL_REPORT: ${{ secrets.URL_REPORT }}
-          URL_AUDIT: ${{ secrets.URL_AUDIT }}
-          URL_CATALOG: ${{ secrets.GATEWAY_IP }}
+          # ms-report, ms-audit and ms-catalog are all reached through the API Gateway.
+          GATEWAY_URL: ${{ secrets.GATEWAY_IP }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
 
-          envs: AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_SESSION_TOKEN,AWS_REGION,ECR_REGISTRY,ECR_REPO,URL_REPORT,URL_AUDIT,URL_CATALOG
+          envs: AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_SESSION_TOKEN,AWS_REGION,ECR_REGISTRY,ECR_REPO,GATEWAY_URL
 
           script: |
             set -e
@@ -103,9 +102,9 @@ jobs:
             --name ms-bff \
             --restart unless-stopped \
             -p 8085:8085 \
-            -e MS_REPORT="$URL_REPORT" \
-            -e MS_AUDIT="$URL_AUDIT" \
-            -e MS_CATALOG="$URL_CATALOG" \
+            -e MS_REPORT="$GATEWAY_URL" \
+            -e MS_AUDIT="$GATEWAY_URL" \
+            -e MS_CATALOG="$GATEWAY_URL" \
             "$ECR_REPO:latest"
 
             echo "Deployment completed."

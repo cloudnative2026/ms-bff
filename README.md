@@ -11,6 +11,8 @@ Valida el token Entra (rol Admin) y lo reenvia a ms-report, ms-audit y ms-catalo
 
 Configuracion: MS_REPORT (http://localhost:8084), MS_AUDIT (http://localhost:8083),
 MS_CATALOG (http://localhost:8080), SERVER_PORT, ENTRA_ISSUER, ENTRA_AUDIENCE.
+En produccion las tres apuntan al API Gateway (secret GATEWAY_IP), que debe enrutar
+/api/v1/report/* a ms-report y /api/v1/audit/* a ms-audit.
 
 ## API (rol Admin)
 
