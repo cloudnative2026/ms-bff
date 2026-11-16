@@ -70,7 +70,7 @@ jobs:
           # ms-report, ms-audit and ms-catalog are all reached through the API Gateway.
           GATEWAY_URL: ${{ secrets.GATEWAY_IP }}
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.EC2_HOST_ANALYTICS }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
 
